@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="JizanOMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblGateway">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tblLatest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MeterAddress" Type="nvarchar" MaxLength="10" />
+          <Property Name="ReadingDate" Type="datetime" />
+          <Property Name="RawTelegram" Type="nvarchar" MaxLength="500" />
+          <Property Name="GatewayId" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblRaw">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MeterAddress" Type="nvarchar" MaxLength="10" />
+          <Property Name="ReadingDate" Type="datetime" />
+          <Property Name="RawTelegram" Type="nvarchar" MaxLength="500" />
+          <Property Name="GatewayId" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Function Name="LATEST_METER_READING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="GatewayId" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="JizanOMSModelStoreContainer">
+          <EntitySet Name="tblGateway" EntityType="Self.tblGateway" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblLatest" EntityType="Self.tblLatest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRaw" EntityType="Self.tblRaw" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="JizanOMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblGateway">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblRaw">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="MeterAddress" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ReadingDate" Type="DateTime" Precision="3" />
+          <Property Name="RawTelegram" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="GatewayId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="JizanOMSContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblGateways" EntityType="Self.tblGateway" />
+          <EntitySet Name="tblRaws" EntityType="Self.tblRaw" />
+          <FunctionImport Name="GetLatestMeterReading">
+          <Parameter Name="GatewayId" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="tblLatests" EntityType="JizanOMSModel.tblLatest" />
+        </EntityContainer>
+        <EntityType Name="tblLatest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="MeterAddress" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ReadingDate" Type="DateTime" Precision="3" />
+          <Property Name="RawTelegram" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="GatewayId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="JizanOMSModelStoreContainer" CdmEntityContainer="JizanOMSContext">
+          <EntitySetMapping Name="tblGateways">
+            <EntityTypeMapping TypeName="JizanOMSModel.tblGateway">
+              <MappingFragment StoreEntitySet="tblGateway">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRaws">
+            <EntityTypeMapping TypeName="JizanOMSModel.tblRaw">
+              <MappingFragment StoreEntitySet="tblRaw">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MeterAddress" ColumnName="MeterAddress" />
+                <ScalarProperty Name="ReadingDate" ColumnName="ReadingDate" />
+                <ScalarProperty Name="RawTelegram" ColumnName="RawTelegram" />
+                <ScalarProperty Name="GatewayId" ColumnName="GatewayId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetLatestMeterReading" FunctionName="JizanOMSModel.Store.LATEST_METER_READING" />
+          <EntitySetMapping Name="tblLatests">
+            <EntityTypeMapping TypeName="JizanOMSModel.tblLatest">
+              <MappingFragment StoreEntitySet="tblLatest">
+                <ScalarProperty Name="GatewayId" ColumnName="GatewayId" />
+                <ScalarProperty Name="RawTelegram" ColumnName="RawTelegram" />
+                <ScalarProperty Name="ReadingDate" ColumnName="ReadingDate" />
+                <ScalarProperty Name="MeterAddress" ColumnName="MeterAddress" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
