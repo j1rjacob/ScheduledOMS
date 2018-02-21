@@ -83,7 +83,7 @@ namespace OMSTaskScheduler
                         //Console.WriteLine(x);
                         var extractMeter = context.tblLatests;
 
-                        string path2 = @"C:\JizHydrusLatest\" + g.Name;
+                        string path2 = @"C:\JizHydrusLatest\" + g.Name +".csv";
                         using (StreamWriter writer = new StreamWriter(path2, false))
                         {
                             string[] separator = { "," };
@@ -94,7 +94,7 @@ namespace OMSTaskScheduler
                             foreach (var em in extractMeter)
                             {
                                 extract += em.MeterAddress + ","; //Serial
-                                extract += em.ReadingDate + ",";//Date
+                                extract += em.ReadingDate.ToString("MM") + ",";//Date
                                 extract += em.RawTelegram;  //Packet
                                 extract += "\r\n";
                             }
