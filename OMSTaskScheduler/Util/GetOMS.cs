@@ -14,10 +14,6 @@ namespace OMSTaskScheduler.Util
     {
         public static void OMSFolder()
         {
-            //string[] folderName = Directory
-            //                        .GetDirectories(@"C:\JizFTP",
-            //                        "*",
-            //                        SearchOption. AllDirectories);
             List<tblGateway> gateway = new List<tblGateway>();
             using (var context = new DAOms.JizanOMSContext())
             {
@@ -38,8 +34,9 @@ namespace OMSTaskScheduler.Util
                         if (new DirectoryInfo(file).Name.Contains("GTW_OMS_RAW_") &&
                             !new DirectoryInfo(file).Name.Contains("lock"))
                         {
-                            //Read file
+                            //Retrieve all lines in CSV
                             System.Data.DataTable newMeter = ReadFile(file);
+                            //BulkCopy
                             InsertMeterBulkCopy(connection, newMeter);
                         }
                     }
@@ -49,7 +46,7 @@ namespace OMSTaskScheduler.Util
         }
 
         private static System.Data.DataTable ReadFile(string filePath)
-        {
+        {   //Create clone tblRaw
             System.Data.DataTable newMeter = new System.Data.DataTable("tblRaw");
 
             DataColumn Id = new DataColumn();
@@ -84,7 +81,6 @@ namespace OMSTaskScheduler.Util
             try
             {
                 DataAccess.DataTable dt = DataAccess.DataTable.New.ReadCsv(filePath);
-
                 // Query via the DataTable.Rows enumeration.
                 var gateway = Path.GetFileName(Path.GetDirectoryName(filePath));
                 DataRow rowMeter;
@@ -93,10 +89,8 @@ namespace OMSTaskScheduler.Util
                     rowMeter = newMeter.NewRow();
                     rowMeter["Id"] = Guid.NewGuid();
                     rowMeter["MeterAddress"] = row["METER_ADDRESS"];
-                    var datetimex = row["READING_DATE"].Split(null);
-                    var cdate1 = datetimex[1].Split('/');
-                    string neotimex = cdate1[1] + "/" + cdate1[0] + "/" + cdate1[2] + " " + datetimex[0];
-                    rowMeter["ReadingDate"] = Convert.ToDateTime(neotimex);
+                    rowMeter["ReadingDate"] = row["READING_DATE"]
+                                              .CSVtoDateDateConvert();
                     rowMeter["RawTelegram"] = row["RAW_TELEGRAM"];
                     rowMeter["GatewayId"] = gateway;
                     newMeter.Rows.Add(rowMeter);
@@ -117,7 +111,6 @@ namespace OMSTaskScheduler.Util
             using (SqlBulkCopy s = new SqlBulkCopy(connection))
             {
                 s.DestinationTableName = "tblRaw";
-                //s.ColumnMappings.Add("Id", "Id");
                 s.ColumnMappings.Add("MeterAddress", "MeterAddress");
                 s.ColumnMappings.Add("ReadingDate", "ReadingDate");
                 s.ColumnMappings.Add("RawTelegram", "RawTelegram");

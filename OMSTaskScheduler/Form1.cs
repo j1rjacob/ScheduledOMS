@@ -1,10 +1,12 @@
 ﻿using Common.Logging;
 using DAOms;
+using OMSTaskScheduler.Dtos;
 using OMSTaskScheduler.Util;
 using Quartz;
 using Quartz.Impl;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -67,23 +69,29 @@ namespace OMSTaskScheduler
 
             using (var context = new JizanOMSContext())
             {
-                //try
-                //{
+                try
+                {
                     List<tblGateway> gateway = new List<tblGateway>();
-                    
-                        var y = from j in context.tblGateways
-                                select j;
-                        gateway = y.ToList();
+
+                    var y = from j in context.tblGateways
+                            select j;
+                    gateway = y.ToList();
                     //delete all latest here
-                    context.Database.ExecuteSqlCommand("delete from tblLatest");
-                    
+                    var result = context.Database.ExecuteSqlCommand("delete from tblLatest");
+                    Console.WriteLine($"Delete {result}");
                     foreach (var g in gateway)
                     {
                         var x = context.GetLatestMeterReading(g.Name);
                         //Console.WriteLine(x);
-                        var extractMeter = context.tblLatests;
-
-                        string path2 = @"C:\JizHydrusLatest\" + g.Name +".csv";
+                        var extractMeter = context.Database
+                            .SqlQuery<CustomLatest>("SELECT DISTINCT MeterAddress, ReadingDate, RawTelegram FROM tblLatest WHERE GatewayId=@GatewayId", 
+                                       new SqlParameter("@GatewayId", g.Name));
+                        var fileName = Timex.CurrentTime();
+                        string path2 = @"C:\JizHydrusLatest\" + g.Name + "\\"+ fileName +".csv";
+                        if (!Directory.Exists(@"C:\JizHydrusLatest\" + g.Name + "\\"))
+                        {
+                            Directory.CreateDirectory(@"C:\JizHydrusLatest\" + g.Name + "\\");
+                        }
                         using (StreamWriter writer = new StreamWriter(path2, false))
                         {
                             string[] separator = { "," };
@@ -94,7 +102,9 @@ namespace OMSTaskScheduler
                             foreach (var em in extractMeter)
                             {
                                 extract += em.MeterAddress + ","; //Serial
-                                extract += em.ReadingDate.ToString().DBtoCSVDateConvert() + ",";//Date
+                                extract += em.ReadingDate
+                                             .ToString()
+                                             .DBtoCSVDateConvert() + ",";//Date
                                 extract += em.RawTelegram;  //Packet
                                 extract += "\r\n";
                             }
@@ -104,14 +114,19 @@ namespace OMSTaskScheduler
                             writer.Close();
                         }
                     }
-                    //Console.WriteLine($"Success {x}");
-                //}
-                //catch (Exception exception)
-                //{
-                //    Console.WriteLine(exception);
-                //    throw;
-                //}
+                    Console.WriteLine("Extracted");
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                    throw;
+                }
             }
+        }
+
+        private void ButtonBackup_Click(object sender, EventArgs e)
+        {
+            ToBackup.MoveMD();
         }
     }
 }
