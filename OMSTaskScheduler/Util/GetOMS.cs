@@ -1,11 +1,12 @@
-﻿using DataAccess;
+﻿using DAOms;
+using DataAccess;
+using OMSTaskScheduler.Core;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
-using DAOms;
 
 namespace OMSTaskScheduler.Util
 {
@@ -37,8 +38,6 @@ namespace OMSTaskScheduler.Util
                         if (new DirectoryInfo(file).Name.Contains("GTW_OMS_RAW_") &&
                             !new DirectoryInfo(file).Name.Contains("lock"))
                         {
-                            //Console.WriteLine(Path.GetFileName(Path.GetDirectoryName(file)));
-                            //Console.WriteLine(new DirectoryInfo(file).Name);
                             //Read file
                             System.Data.DataTable newMeter = ReadFile(file);
                             InsertMeterBulkCopy(connection, newMeter);
@@ -47,7 +46,6 @@ namespace OMSTaskScheduler.Util
                     Console.WriteLine(file);
                 }
             }
-            //return folderName;
         }
 
         private static System.Data.DataTable ReadFile(string filePath)

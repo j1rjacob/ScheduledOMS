@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace OMSTaskScheduler
 {
-    public partial class Form1 : Form
+    public partial class FormTaskScheduler : Form
     {
-        public Form1()
+        public FormTaskScheduler()
         {
             InitializeComponent();
         }
@@ -67,8 +67,8 @@ namespace OMSTaskScheduler
 
             using (var context = new JizanOMSContext())
             {
-                try
-                {
+                //try
+                //{
                     List<tblGateway> gateway = new List<tblGateway>();
                     
                         var y = from j in context.tblGateways
@@ -94,7 +94,7 @@ namespace OMSTaskScheduler
                             foreach (var em in extractMeter)
                             {
                                 extract += em.MeterAddress + ","; //Serial
-                                extract += em.ReadingDate.ToString("MM") + ",";//Date
+                                extract += em.ReadingDate.ToString().DBtoCSVDateConvert() + ",";//Date
                                 extract += em.RawTelegram;  //Packet
                                 extract += "\r\n";
                             }
@@ -105,12 +105,12 @@ namespace OMSTaskScheduler
                         }
                     }
                     //Console.WriteLine($"Success {x}");
-                }
-                catch (Exception exception)
-                {
-                    Console.WriteLine(exception);
-                    throw;
-                }
+                //}
+                //catch (Exception exception)
+                //{
+                //    Console.WriteLine(exception);
+                //    throw;
+                //}
             }
         }
     }

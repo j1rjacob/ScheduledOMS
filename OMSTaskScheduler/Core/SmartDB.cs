@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 
-namespace OMSTaskScheduler
+namespace OMSTaskScheduler.Core
 {
     public class SmartDB
     {
