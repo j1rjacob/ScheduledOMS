@@ -34,7 +34,7 @@
             // 
             // ButtonLatest
             // 
-            this.ButtonLatest.Location = new System.Drawing.Point(256, 64);
+            this.ButtonLatest.Location = new System.Drawing.Point(8, 8);
             this.ButtonLatest.Name = "ButtonLatest";
             this.ButtonLatest.Size = new System.Drawing.Size(96, 23);
             this.ButtonLatest.TabIndex = 0;
@@ -44,7 +44,7 @@
             // 
             // ButtonBackup
             // 
-            this.ButtonBackup.Location = new System.Drawing.Point(256, 112);
+            this.ButtonBackup.Location = new System.Drawing.Point(8, 56);
             this.ButtonBackup.Name = "ButtonBackup";
             this.ButtonBackup.Size = new System.Drawing.Size(96, 23);
             this.ButtonBackup.TabIndex = 1;
@@ -56,7 +56,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(504, 432);
+            this.ClientSize = new System.Drawing.Size(120, 84);
             this.Controls.Add(this.ButtonBackup);
             this.Controls.Add(this.ButtonLatest);
             this.Name = "FormTaskScheduler";

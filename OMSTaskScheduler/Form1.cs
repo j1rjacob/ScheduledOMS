@@ -1,5 +1,6 @@
 ﻿using Common.Logging;
 using DAOms;
+using OMSTaskScheduler.Core;
 using OMSTaskScheduler.Dtos;
 using OMSTaskScheduler.Util;
 using Quartz;

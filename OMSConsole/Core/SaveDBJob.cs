@@ -1,7 +1,7 @@
 ﻿using Quartz;
 using System;
 
-namespace OMSTaskScheduler
+namespace OMSConsole.Core
 {
     public class SaveDBJob : IJob
     {

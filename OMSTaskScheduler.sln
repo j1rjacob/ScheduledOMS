@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAOms", "DAOms\DAOms.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppTest", "ConsoleAppTest\ConsoleAppTest.csproj", "{C756FBBC-8E8B-426B-AF77-CB01CF0CCFBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMSConsole", "OMSConsole\OMSConsole.csproj", "{20B3E5F7-6600-4C00-9329-CE880EA792B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C756FBBC-8E8B-426B-AF77-CB01CF0CCFBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C756FBBC-8E8B-426B-AF77-CB01CF0CCFBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C756FBBC-8E8B-426B-AF77-CB01CF0CCFBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20B3E5F7-6600-4C00-9329-CE880EA792B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20B3E5F7-6600-4C00-9329-CE880EA792B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20B3E5F7-6600-4C00-9329-CE880EA792B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20B3E5F7-6600-4C00-9329-CE880EA792B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
