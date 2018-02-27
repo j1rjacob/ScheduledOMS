@@ -40,7 +40,7 @@ namespace OMSTaskScheduler.Util
                             InsertMeterBulkCopy(connection, newMeter);
                         }
                     }
-                    Console.WriteLine(file);
+                    //Console.WriteLine(file);
                 }
             }
         }
@@ -118,7 +118,7 @@ namespace OMSTaskScheduler.Util
                 try
                 {
                     s.WriteToServer(meter);
-                    Console.WriteLine($"Importing was successful.");
+                    //Console.WriteLine($"Importing was successful.");
                 }
                 catch (Exception ex)
                 {

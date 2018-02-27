@@ -69,6 +69,7 @@
     <Compile Include="Core\SmartDB.cs" />
     <Compile Include="Core\SqlHelper.cs" />
     <Compile Include="Dtos\CustomLatest.cs" />
+    <Compile Include="Dtos\HydrusData.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +119,11 @@
       <Project>{68087473-f0b6-4dfa-b11d-41a7414c5abe}</Project>
       <Name>DAOms</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Util\signal.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

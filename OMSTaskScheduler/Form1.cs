@@ -25,7 +25,7 @@ namespace OMSTaskScheduler
         private void Form1_Load(object sender, EventArgs e)
         {
             //LoadTaskScheduler();
-            GetOMS.OMSFolder();
+            
         }
         private static ILog Log = LogManager.GetCurrentClassLogger();
         private void LoadTaskScheduler()
@@ -115,19 +115,112 @@ namespace OMSTaskScheduler
                             writer.Close();
                         }
                     }
+                    MessageBox.Show("Latest record/s extracted.");
                     Console.WriteLine("Extracted");
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
-                    Console.WriteLine(exception);
-                    throw;
+                    return;
                 }
             }
         }
 
         private void ButtonBackup_Click(object sender, EventArgs e)
         {
-            ToBackup.MoveMD();
+            try
+            {
+                ToBackup.MoveMD();
+                MessageBox.Show("Backup completed.");
+            }
+            catch (Exception)
+            {
+                return;
+            }
+            
+        }
+
+        private void ButtonMigrate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                GetOMS.OMSFolder();
+                MessageBox.Show("Record/s transfer completed.");
+            }
+            catch (Exception)
+            {
+                return;
+            }
+            
+        }
+
+        private void ButtonExport_Click(object sender, EventArgs e)
+        {
+            using (var context = new JizanOMSContext())
+            {
+                try
+                {
+                    ButtonMigrate.PerformClick();
+                    ButtonLatest.PerformClick();
+                    ButtonBackup.PerformClick();
+
+                    string strPath = Environment.GetFolderPath(
+                        System.Environment.SpecialFolder.DesktopDirectory);
+
+                    var extractMeter1 = context.Database
+                            .SqlQuery<HydrusData>("SELECT * FROM viewLatestHydrusData WHERE ReadingDate IS NOT NULL");
+                    var extractMeter2 = context.Database
+                            .SqlQuery<HydrusData>("SELECT * FROM viewLatestHydrusData WHERE ReadingDate IS NULL");
+
+                        var fileName = Timex.CurrentTime();
+
+                        string path2 = strPath + "\\" + "HYDRUS_DATA_" + fileName + ".csv";
+                       
+                        using (StreamWriter writer = new StreamWriter(path2, false))
+                        {
+                            string[] separator = { "," };
+                            var filecontents = new StringBuilder();
+                            filecontents.Append("#, Account No, Area No, Area Name, Serial No, RAW_TELEGRAM, READING_DATE\r\n");
+
+                            string extract = null;
+                            foreach (var em in extractMeter1)
+                            {
+                                extract += em.RowNum + ","; //#
+                                extract += em.AccountNo + ","; //AccountNo
+                                extract += em.AreaNo + ","; //AreaNo
+                                extract += em.AreaName + ","; //AreaName
+                                extract += em.MeterAddress + ","; //SerialNo
+                                extract += em.RawTelegram + ","; //Packet
+                                extract += em.ReadingDate
+                                               .ToString()
+                                               .DBtoCSVDateConvert();//Date
+                                extract += "\r\n";
+                            }
+
+                            foreach (var em in extractMeter2)
+                            {
+                                extract += em.RowNum + ","; //#
+                                extract += em.AccountNo + ","; //AccountNo
+                                extract += em.AreaNo + ","; //AreaNo
+                                extract += em.AreaName + ","; //AreaName
+                                extract += em.MeterAddress + ","; //SerialNo
+                                extract += em.RawTelegram + ","; //Packet
+                                extract += em.ReadingDate;//Date
+                                extract += "\r\n";
+                            }
+                            
+                            filecontents.Append(extract);
+                            writer.Write(filecontents.ToString());
+                            writer.Flush();
+                            writer.Close();
+                        }
+                    //Console.WriteLine("Extracted Hydrus Data");
+                    MessageBox.Show("Extracted Hydrus Data in Desktop.");
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+            }
         }
     }
 }

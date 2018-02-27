@@ -6,6 +6,11 @@ namespace OMSTaskScheduler.Util
     {
         public static string DBtoCSVDateConvert(this string DBDate)
         {
+            if (DBDate == null)
+            {
+                Console.WriteLine(DBDate);
+                return "";
+            }
             var dbDate = DBDate.Split(null);
             var datex = DateTime.Parse(dbDate[0]);
             var time24 = DateTime.Parse(dbDate[1] + " " + dbDate[2]);
