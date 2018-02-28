@@ -1,5 +1,5 @@
-﻿using System;
-using Quartz;
+﻿using Quartz;
+using System;
 
 namespace OMSTaskScheduler.Core
 {
@@ -7,11 +7,19 @@ namespace OMSTaskScheduler.Core
     {
         void IJob.Execute(IJobExecutionContext context)
         {
+            try
+            {
+               FormTaskScheduler.ExportHydrusData();
+            }
+            catch (Exception)
+            {
+                return;
+            }
             //GetOMS
-            //MultipleSave
+            //GetLatest
             //ProcessLatestReadings
             //Move CSV to backup directory
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

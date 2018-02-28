@@ -23,6 +23,12 @@ namespace OMSTaskScheduler.Util
             }
             foreach (var g in gateway)
             {
+                if (!Directory.Exists(@"C:\JizFTP\" + g.Name))
+                {
+                    Console.WriteLine($"Folder {g.Name} not found.");
+                    continue;
+                }
+
                 string[] files = Directory
                     .GetFiles(@"C:\JizFTP\" + g.Name);
                 foreach (var file in files)
@@ -38,9 +44,9 @@ namespace OMSTaskScheduler.Util
                             System.Data.DataTable newMeter = ReadFile(file);
                             //BulkCopy
                             InsertMeterBulkCopy(connection, newMeter);
+                            Console.WriteLine(file);
                         }
                     }
-                    //Console.WriteLine(file);
                 }
             }
         }
@@ -118,7 +124,7 @@ namespace OMSTaskScheduler.Util
                 try
                 {
                     s.WriteToServer(meter);
-                    //Console.WriteLine($"Importing was successful.");
+                    Console.WriteLine($"Importing was successful.");
                 }
                 catch (Exception ex)
                 {
@@ -126,6 +132,5 @@ namespace OMSTaskScheduler.Util
                 }
             }
         }
-
     }
 }

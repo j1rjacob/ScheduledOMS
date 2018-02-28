@@ -1,4 +1,5 @@
 ﻿using DAOms;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,6 +24,12 @@ namespace OMSTaskScheduler.Util
                 
                 foreach (var g in gateway)
                 {
+                    if (!Directory.Exists(@"C:\JizFTP\" + g.Name))
+                    {
+                        Console.WriteLine($"Folder {g.Name} not found.");
+                        continue;
+                    }
+
                     if (Directory.Exists(@"C:\JizHydrusBackup\" + g.Name))
                     {   //Overwrite files if exist.
                         string[] files = System.IO.Directory.GetFiles(@"C:\JizFTP\" + g.Name);

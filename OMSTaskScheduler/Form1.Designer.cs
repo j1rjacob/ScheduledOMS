@@ -29,78 +29,114 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTaskScheduler));
-            this.ButtonLatest = new System.Windows.Forms.Button();
-            this.ButtonBackup = new System.Windows.Forms.Button();
-            this.ButtonExport = new System.Windows.Forms.Button();
-            this.ButtonMigrate = new System.Windows.Forms.Button();
+            this.richTextBoxDebug = new System.Windows.Forms.RichTextBox();
+            this.metroCheckBoxAuto = new MetroFramework.Controls.MetroCheckBox();
+            this.metroTileExport = new MetroFramework.Controls.MetroTile();
+            this.metroTileCopy = new MetroFramework.Controls.MetroTile();
+            this.metroTileLatest = new MetroFramework.Controls.MetroTile();
+            this.metroTileBackup = new MetroFramework.Controls.MetroTile();
             this.SuspendLayout();
             // 
-            // ButtonLatest
+            // richTextBoxDebug
             // 
-            this.ButtonLatest.Location = new System.Drawing.Point(152, 8);
-            this.ButtonLatest.Name = "ButtonLatest";
-            this.ButtonLatest.Size = new System.Drawing.Size(100, 100);
-            this.ButtonLatest.TabIndex = 2;
-            this.ButtonLatest.Text = "GetLatest";
-            this.ButtonLatest.UseVisualStyleBackColor = true;
-            this.ButtonLatest.Click += new System.EventHandler(this.ButtonLatest_Click);
+            this.richTextBoxDebug.BackColor = System.Drawing.SystemColors.MenuText;
+            this.richTextBoxDebug.ForeColor = System.Drawing.SystemColors.Window;
+            this.richTextBoxDebug.Location = new System.Drawing.Point(8, 88);
+            this.richTextBoxDebug.Name = "richTextBoxDebug";
+            this.richTextBoxDebug.Size = new System.Drawing.Size(424, 360);
+            this.richTextBoxDebug.TabIndex = 5;
+            this.richTextBoxDebug.Text = "";
             // 
-            // ButtonBackup
+            // metroCheckBoxAuto
             // 
-            this.ButtonBackup.Location = new System.Drawing.Point(280, 8);
-            this.ButtonBackup.Name = "ButtonBackup";
-            this.ButtonBackup.Size = new System.Drawing.Size(100, 100);
-            this.ButtonBackup.TabIndex = 3;
-            this.ButtonBackup.Text = "Move to Backup";
-            this.ButtonBackup.UseVisualStyleBackColor = true;
-            this.ButtonBackup.Click += new System.EventHandler(this.ButtonBackup_Click);
+            this.metroCheckBoxAuto.AutoSize = true;
+            this.metroCheckBoxAuto.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.metroCheckBoxAuto.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.metroCheckBoxAuto.ForeColor = System.Drawing.Color.Green;
+            this.metroCheckBoxAuto.Location = new System.Drawing.Point(624, 56);
+            this.metroCheckBoxAuto.Name = "metroCheckBoxAuto";
+            this.metroCheckBoxAuto.Size = new System.Drawing.Size(116, 25);
+            this.metroCheckBoxAuto.TabIndex = 6;
+            this.metroCheckBoxAuto.Text = "Allow Auto";
+            this.metroCheckBoxAuto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.metroCheckBoxAuto.UseSelectable = true;
+            this.metroCheckBoxAuto.CheckedChanged += new System.EventHandler(this.metroCheckBoxAuto_CheckedChanged);
             // 
-            // ButtonExport
+            // metroTileExport
             // 
-            this.ButtonExport.Location = new System.Drawing.Point(408, 8);
-            this.ButtonExport.Name = "ButtonExport";
-            this.ButtonExport.Size = new System.Drawing.Size(100, 100);
-            this.ButtonExport.TabIndex = 0;
-            this.ButtonExport.Text = "Export  Hydrus Data";
-            this.ButtonExport.UseVisualStyleBackColor = true;
-            this.ButtonExport.Click += new System.EventHandler(this.ButtonExport_Click);
+            this.metroTileExport.ActiveControl = null;
+            this.metroTileExport.Location = new System.Drawing.Point(600, 88);
+            this.metroTileExport.Name = "metroTileExport";
+            this.metroTileExport.Size = new System.Drawing.Size(144, 360);
+            this.metroTileExport.TabIndex = 7;
+            this.metroTileExport.Text = "Export Hydrus Data";
+            this.metroTileExport.UseSelectable = true;
+            this.metroTileExport.Click += new System.EventHandler(this.metroTileExport_Click);
             // 
-            // ButtonMigrate
+            // metroTileCopy
             // 
-            this.ButtonMigrate.Location = new System.Drawing.Point(24, 8);
-            this.ButtonMigrate.Name = "ButtonMigrate";
-            this.ButtonMigrate.Size = new System.Drawing.Size(100, 100);
-            this.ButtonMigrate.TabIndex = 1;
-            this.ButtonMigrate.Text = "Migrate CSV to DB";
-            this.ButtonMigrate.UseVisualStyleBackColor = true;
-            this.ButtonMigrate.Click += new System.EventHandler(this.ButtonMigrate_Click);
+            this.metroTileCopy.ActiveControl = null;
+            this.metroTileCopy.Location = new System.Drawing.Point(442, 88);
+            this.metroTileCopy.Name = "metroTileCopy";
+            this.metroTileCopy.Size = new System.Drawing.Size(144, 111);
+            this.metroTileCopy.TabIndex = 8;
+            this.metroTileCopy.Text = "Copy 2 Database";
+            this.metroTileCopy.UseSelectable = true;
+            this.metroTileCopy.Click += new System.EventHandler(this.metroTileCopy_Click);
+            // 
+            // metroTileLatest
+            // 
+            this.metroTileLatest.ActiveControl = null;
+            this.metroTileLatest.Location = new System.Drawing.Point(442, 216);
+            this.metroTileLatest.Name = "metroTileLatest";
+            this.metroTileLatest.Size = new System.Drawing.Size(144, 111);
+            this.metroTileLatest.TabIndex = 9;
+            this.metroTileLatest.Text = "Get Latest";
+            this.metroTileLatest.UseSelectable = true;
+            this.metroTileLatest.Click += new System.EventHandler(this.metroTileLatest_Click);
+            // 
+            // metroTileBackup
+            // 
+            this.metroTileBackup.ActiveControl = null;
+            this.metroTileBackup.Location = new System.Drawing.Point(442, 336);
+            this.metroTileBackup.Name = "metroTileBackup";
+            this.metroTileBackup.Size = new System.Drawing.Size(144, 111);
+            this.metroTileBackup.TabIndex = 10;
+            this.metroTileBackup.Text = "Move 2 Backup";
+            this.metroTileBackup.UseSelectable = true;
+            this.metroTileBackup.Click += new System.EventHandler(this.metroTileBackup_Click);
             // 
             // FormTaskScheduler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 432);
-            this.Controls.Add(this.ButtonExport);
-            this.Controls.Add(this.ButtonBackup);
-            this.Controls.Add(this.ButtonMigrate);
-            this.Controls.Add(this.ButtonLatest);
+            this.ClientSize = new System.Drawing.Size(754, 461);
+            this.Controls.Add(this.metroTileBackup);
+            this.Controls.Add(this.metroTileLatest);
+            this.Controls.Add(this.metroTileCopy);
+            this.Controls.Add(this.metroTileExport);
+            this.Controls.Add(this.metroCheckBoxAuto);
+            this.Controls.Add(this.richTextBoxDebug);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormTaskScheduler";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Opacity = 0.9D;
+            this.Resizable = false;
             this.Text = "OMS Task Scheduler";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button ButtonLatest;
-        private System.Windows.Forms.Button ButtonBackup;
-        private System.Windows.Forms.Button ButtonExport;
-        private System.Windows.Forms.Button ButtonMigrate;
+        private MetroFramework.Controls.MetroCheckBox metroCheckBoxAuto;
+        private MetroFramework.Controls.MetroTile metroTileExport;
+        private MetroFramework.Controls.MetroTile metroTileCopy;
+        private MetroFramework.Controls.MetroTile metroTileLatest;
+        private MetroFramework.Controls.MetroTile metroTileBackup;
+        private System.Windows.Forms.RichTextBox richTextBoxDebug;
     }
 }
 
