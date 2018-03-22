@@ -181,8 +181,9 @@ namespace OMSTaskScheduler
                     GetLatest();
                     ToBackup.MoveMD();
 
-                    string strPath = Environment.GetFolderPath(
-                        System.Environment.SpecialFolder.DesktopDirectory);
+                    //string strPath = Environment.GetFolderPath(
+                    //    System.Environment.SpecialFolder.DesktopDirectory);
+                    string strPath = @"C:\JizHydrusLatest\";
 
                     var extractMeter1 = context.Database
                         .SqlQuery<HydrusData>("SELECT * FROM viewLatestHydrusData WHERE ReadingDate IS NOT NULL");
@@ -232,7 +233,7 @@ namespace OMSTaskScheduler
                         writer.Close();
                     }
                     //Console.WriteLine("Extracted Hydrus Data");
-                    Console.WriteLine("Extracted Hydrus Data in Desktop.");
+                    Console.WriteLine("Extracted Hydrus Data in JizHydrusLatest Folder.");
                 }
                 catch (Exception e)
                 {
